@@ -1,0 +1,66 @@
+[
+  {
+    "commodity": "AS OF 01 FEBRUARY",
+    "unit": "unit",
+    "price": 2025,
+    "source": "DTI",
+    "region": "National",
+    "date": "2025-02-01"
+  },
+  {
+    "commodity": "Blister Pack of",
+    "unit": "unit",
+    "price": 2,
+    "source": "DTI",
+    "region": "National",
+    "date": "2025-02-01"
+  },
+  {
+    "commodity": "– Blister Pack of",
+    "unit": "unit",
+    "price": 2,
+    "source": "DTI",
+    "region": "National",
+    "date": "2025-02-01"
+  },
+  {
+    "commodity": "Pack of",
+    "unit": "unit",
+    "price": 4,
+    "source": "DTI",
+    "region": "National",
+    "date": "2025-02-01"
+  },
+  {
+    "commodity": "Black - Pack of",
+    "unit": "unit",
+    "price": 2,
+    "source": "DTI",
+    "region": "National",
+    "date": "2025-02-01"
+  },
+  {
+    "commodity": "AA",
+    "unit": "unit",
+    "price": 39.95,
+    "source": "DTI",
+    "region": "National",
+    "date": "2025-02-01"
+  },
+  {
+    "commodity": "Pack of",
+    "unit": "unit",
+    "price": 2,
+    "source": "DTI",
+    "region": "National",
+    "date": "2025-02-01"
+  },
+  {
+    "commodity": "Blister Pack of",
+    "unit": "unit",
+    "price": 4,
+    "source": "DTI",
+    "region": "National",
+    "date": "2025-02-01"
+  }
+]

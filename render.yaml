@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: ph-price-tracker-api
+    env: node
+    buildCommand: npm install && npm run db:generate
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    secrets:
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false 

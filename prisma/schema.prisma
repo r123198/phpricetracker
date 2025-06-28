@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Commodity {
+  id          String   @id @default(cuid())
+  name        String   @unique @db.VarChar(100)
+  category    String   @db.VarChar(100)
+  slug        String   @unique @db.VarChar(100)
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  prices Price[]
+
+  @@map("commodities")
+}
+
+model Price {
+  id          String   @id @default(cuid())
+  commodityId String
+  price       Decimal  @db.Decimal(10, 2)
+  unit        String   @db.VarChar(50)
+  region      String   @db.VarChar(100)
+  source      String   @db.VarChar(50)
+  date        DateTime @db.Date
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  commodity Commodity @relation(fields: [commodityId], references: [id], onDelete: Cascade)
+
+  // Enhanced composite unique constraint to prevent duplicate price entries
+  // Includes source to allow same commodity/region/date from different sources
+  @@unique([commodityId, region, date, source], name: "unique_price_entry")
+  @@map("prices")
+} 
