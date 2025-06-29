@@ -117,7 +117,7 @@ const getLatestPrices = async (req, res, next) => {
     const cacheKey = `latest_prices:${region || 'all'}:${category || 'all'}:${limitNum}:${pageNum}`;
     
     // Try to get from cache first
-    const cachedData = cacheUtils.get(cacheKey);
+    const cachedData = await cacheUtils.get(cacheKey);
     if (cachedData) {
       return res.json(cachedData);
     }
@@ -162,7 +162,7 @@ const getLatestPrices = async (req, res, next) => {
     const response = createPaginatedResponse(prices, pageNum, limitNum, total);
     
     // Cache the response for 5 minutes (shorter TTL for frequently changing data)
-    cacheUtils.set(cacheKey, response, 300);
+    await cacheUtils.set(cacheKey, response, 300);
     
     res.json(response);
   } catch (error) {

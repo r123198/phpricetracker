@@ -815,30 +815,28 @@ Scrapers generate JSON files in the `output/` directory:
 - `latest_prices_da_ncr.json` - NCR region single prices
 - `latest_prices_da_rx.json` - RX region single prices
 
-## 🚀 Deployment
+## 🚀 **Quick Deploy**
 
-### Railway Deployment
-
-1. Connect your GitHub repository to Railway
-2. Add environment variables in Railway dashboard
-3. Deploy automatically on push
-
-### Render Deployment
-
-1. Create a new Web Service in Render
-2. Connect your GitHub repository
-3. Set build command: `npm install && npm run db:generate`
-4. Set start command: `npm start`
-5. Add environment variables
-
-### Environment Variables for Production
-
-```env
-DATABASE_URL="your-production-postgresql-url"
-NODE_ENV=production
-ADMIN_API_KEY="your-production-api-key"
-ALLOWED_ORIGINS="https://your-frontend-domain.com"
+### **DigitalOcean (Recommended - Most Cost-Effective)**
+```bash
+# Automated deployment script
+npm run deploy:digitalocean
 ```
+**Cost:** $6-27/month | **Setup:** 5 minutes
+
+### **Docker (Alternative)**
+```bash
+# One-command deployment
+npm run deploy:docker
+```
+
+### **Other Platforms**
+- **Railway**: `npm run deploy:railway` ($5-20/month)
+- **Render**: Connect GitHub repo ($7-25/month)
+- **Heroku**: `npm run deploy:heroku` ($7-25/month)
+
+📖 **Full deployment guide**: [docs/deployment.md](docs/deployment.md)  
+⚡ **Quick reference**: [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ## 🔒 Security Features
 
