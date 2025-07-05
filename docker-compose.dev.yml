@@ -1,17 +1,17 @@
 version: '3.8'
 
 services:
-  # Main API application
+  # Main API application (development mode)
   api:
     build:
       context: .
       dockerfile: Dockerfile.production
-    container_name: ph-price-tracker-api
+    container_name: ph-price-tracker-api-dev
     restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=3000
       # Database connection for containerized setup
       - DATABASE_URL=postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-ph_price_tracker}
@@ -29,6 +29,9 @@ services:
     volumes:
       - ./logs:/app/logs
       - ./uploads:/app/uploads
+      # Mount source code for development (optional)
+      - .:/app
+      - /app/node_modules
     healthcheck:
       test: ["CMD", "node", "healthcheck.js"]
       interval: 30s
@@ -39,7 +42,7 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: ph-price-tracker-db
+    container_name: ph-price-tracker-db-dev
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${DB_NAME:-ph_price_tracker}
@@ -61,7 +64,7 @@ services:
   # Redis Cache
   redis:
     image: redis:7-alpine
-    container_name: ph-price-tracker-redis
+    container_name: ph-price-tracker-redis-dev
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -74,29 +77,6 @@ services:
       interval: 10s
       timeout: 3s
       retries: 5
-
-  # Nginx Reverse Proxy (optional for local testing)
-  nginx:
-    image: nginx:alpine
-    container_name: ph-price-tracker-nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      # Make SSL directory optional - will be created if needed
-      - ./ssl:/etc/nginx/ssl:ro
-    depends_on:
-      api:
-        condition: service_healthy
-    networks:
-      - app-network
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
 
 volumes:
   postgres_data:
